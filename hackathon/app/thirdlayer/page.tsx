@@ -158,7 +158,7 @@ export default function ThirdLayer() {
           {allCorrect && (
             <div className="mt-6 flex justify-end">
               <button
-                onClick={() => router.push("/fourthlayer")}
+                onClick={() => askAreYouSure(() => router.push("/fourthlayer"))}
                 className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded"
               >
                 Gå vidare
