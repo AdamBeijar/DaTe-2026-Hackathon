@@ -9,7 +9,7 @@ export default function ConfirmModal({ open, onAnswer }: ConfirmModalProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/75">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/75 z-50">
       <div className="bg-black p-8 rounded shadow text-white">
         <p>Are you sure?</p>
 
