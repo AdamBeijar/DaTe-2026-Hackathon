@@ -83,7 +83,7 @@ export default function FourthLayer() {
     return () => clearTimeout(timer);
 }, []);
 
-     const handleConfirmAnswer = (answer: boolean) => {
+    const handleConfirmAnswer = (answer: boolean) => {
         setConfirmOpen(false);
 
         if (answer && pendingAction) pendingAction();
@@ -205,7 +205,7 @@ export default function FourthLayer() {
 
     const handleNextLayer = () => {
         askAreYouSure(() => {
-            router.push("/fifthlayer");
+            router.push("/Chaoslayers/fifthlayer");
         });
     }
 
