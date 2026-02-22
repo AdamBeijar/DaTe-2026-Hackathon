@@ -1,154 +1,234 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 import PopUpAd from "../../Components/PopUpAd";
 import ConfirmModal from "@/app/Components/ConfirmModal";
 import ToSModal from "@/app/Components/ToSModal";
 
+type Step = "question" | "captcha";
+
 export default function FifthLayer() {
-    // Ads
-    const [ads, setAds] = useState([]);
-    const [adChoises, setAdChoises] = useState([
-        { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
-        { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },
-        { name: "Ad 3", src: "/PopUpAds/spelkväll5.png" },
-        { name: "Ad 4", src: "/PopUpAds/StartDatingRichMenNOW.mp4" },
-        { name: "Ad 5", src: "/PopUpAds/VirusDetected.png" },
-        { name: "Ad 6", src: "/PopUpAds/DaTebola.png" },
-    ]);
+  const router = useRouter();
 
-    const removeAd = (indexToRemove: number) => {
-        setAds((prev) => prev.filter((_, index) => index !== indexToRemove));
-    }
+  const [ads, setAds] = useState<any[]>([]);
 
-    useEffect(() => {
-    let timer: string | number | NodeJS.Timeout | undefined;
+  const adChoises = [
+    { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
+    { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },
+    { name: "Ad 3", src: "/PopUpAds/spelkväll5.png" },
+    { name: "Ad 4", src: "/PopUpAds/StartDatingRichMenNOW.mp4" },
+    { name: "Ad 5", src: "/PopUpAds/VirusDetected.png" },
+    { name: "Ad 6", src: "/PopUpAds/DaTebola.png" },
+  ];
+
+  const removeAd = (indexToRemove: number) => {
+    setAds((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
+
+  useEffect(() => {
+    let timer: any;
 
     const spawnAd = () => {
-        // 1. Calculate the next random delay (2000ms to 10000ms)
-        const randomDelay = Math.floor(Math.random() * 8000) + 2000;
+      const randomDelay = Math.floor(Math.random() * 8000) + 2000;
 
-        timer = setTimeout(() => {
-            // 2. Add the new ad
-            const randomAdIndex = Math.floor(Math.random() * adChoises.length);
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight;
-            const w = Math.floor(Math.random() * 200) + 300;
-            let y = Math.floor(Math.random() * (screenHeight));
-            if (screenHeight - y < 250) {
-                y = y - 250;
-            }
+      timer = setTimeout(() => {
+        const randomAdIndex = Math.floor(Math.random() * adChoises.length);
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
 
+        const w = Math.floor(Math.random() * 200) + 300;
 
-            console.log("ad length: ", ads.length);
-            console.log(ads);
-            setAds((prev) => [...prev, {
-                x: Math.floor(Math.random() * (screenWidth - w)),
-                y,
-                w,
-                src: adChoises[randomAdIndex].src,
-            }]);
+        let y = Math.floor(Math.random() * screenHeight);
+        if (screenHeight - y < 250) y = y - 250;
 
-            // 3. RECURSION: Start the process again for the next ad
-            spawnAd();
-        }, randomDelay);
+        setAds((prev) => [
+          ...prev,
+          {
+            x: Math.floor(Math.random() * (screenWidth - w)),
+            y,
+            w,
+            src: adChoises[randomAdIndex].src,
+          },
+        ]);
+
+        spawnAd();
+      }, randomDelay);
     };
-    
-    // Start the ad spawning process when the component mounts
+
     spawnAd();
     return () => clearTimeout(timer);
-    }, []);
+  }, []);
+
+  const QUESTION = {
+    question: "Vad heter det träsk eller den flod som utgör den femte kretsen?",
+    options: ["Slit", "Mute", "Donau", "Styx"],
+    correctIndex: 3,
+  };
+
+  const CAPTCHA_IMG = "/albin-logo.png"; 
+
+  const [step, setStep] = useState<Step>("question");
 
 
-    //TOS
-    const QUESTION = {
-        question: "Vad heter det träsk eller den flod som utgör den femte kretsen?",
-        options: ["Slit", "Mute", "Donau", "Styx"],
-        correctIndex: 3 
-    };
+  const [tosOpen, setTosOpen] = useState(false);
+  const tosSrc = "/Dantes%20ToS.htm";
 
-    const [correct, setCorrect] = useState<boolean | null>(null);
-    const [TOSopen, setTosOpen] = useState(false);
-    const [pendingAction, setPendingAction] = useState<null | (() => void)>(null);
-    const [tosSrc, setTosSrc] = useState<string>("/Dantes ToS.htm");
-    const [answer, setAnswer] = useState<number | null>(null);
-    const [confirmOpen, setConfirmOpen] = useState(false);
+  
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<null | (() => void)>(null);
 
-    const chooseOption = (optionIndex: number) => {
-        if (optionIndex === QUESTION.correctIndex) {
-            setCorrect(true);
-        } else {
-            setCorrect(false);
-            setTosOpen(true);
-        }
-    };
-    const askAreYouSure = (action: () => void) => {
-        setPendingAction(() => action);
-        setConfirmOpen(true);
-    };
+  const askAreYouSure = (action: () => void) => {
+    setPendingAction(() => action);
+    setConfirmOpen(true);
+  };
 
-    const handleAcceptTos = () => {
-        askAreYouSure(() => {
-        setTosOpen(false);
-        });
-    };
+  const handleConfirmAnswer = (answer: boolean) => {
+    setConfirmOpen(false);
+    if (answer && pendingAction) pendingAction();
+    setPendingAction(null);
+  };
 
-    const handleConfirmAnswer = (answer: boolean) => {
-        setConfirmOpen(false);
+  const [correct, setCorrect] = useState<boolean | null>(null);
 
-        if (answer && pendingAction) pendingAction();
-        setPendingAction(null);
-    };
 
-    return (
-        <div className="relative bg-black w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
-            <h1 className="text-white text-3xl">Välkommen till det femte lagret av Albins inferno!</h1>
-            {ads.map((ad, index) => (
-            <PopUpAd 
-                key={index} 
-                index={index} // Pass the index so the ad knows who it is
-                x={ad.x} 
-                y={ad.y} 
-                w={ad.w} 
-                src={ad.src} 
-                onClose={() => removeAd(index)} // Pass the delete function
-            />
-            ))}
-            <div className="border border-zinc-700 rounded p-4 mt-6">
-                <h1 className="text-xl text-white mb-1">Du läste välan ToS?</h1>
-                <p className="font-medium text-white">
-                  {QUESTION.question}
-                </p>
+  const [captchaTiles, setCaptchaTiles] = useState<boolean[]>(Array(9).fill(false));
+  const captchaDone = captchaTiles.every(Boolean);
 
-                <div className="mt-3 grid gap-2">
-                  {QUESTION.options.map((opt, oi) => {
-                    const base = "w-full text-left px-3 py-2 rounded border transition text-white";
-                    const cls = correct 
-                        ? `${base} border-blue-400 bg-blue-500/20`
-                        : `${base} border-zinc-700 hover:border-zinc-400`;
 
-                    return (
-                      <button
-                        key={oi}
-                        onClick={() => chooseOption(oi)}
-                        className={cls}
-                      >
-                        {opt}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-              <ConfirmModal open={confirmOpen} onAnswer={handleConfirmAnswer} />
-            <ToSModal
-                open={TOSopen}
-                onClose={() => setTosOpen(false)}
-                onAccept={handleAcceptTos}
-                src={tosSrc}
-                variant={"wrong"}
-            />
+  const chooseOption = (optionIndex: number) => {
+    askAreYouSure(() => {
+      if (optionIndex === QUESTION.correctIndex) {
+        setCorrect(true);
+        setStep("captcha");
+      } else {
+        setCorrect(false);
+        setTosOpen(true);
+      }
+    });
+  };
+
+  const handleAcceptTos = () => {
+    askAreYouSure(() => setTosOpen(false));
+  };
+
+  const handleCloseTos = () => {
+    askAreYouSure(() => setTosOpen(false));
+  };
+
+
+  const clickCaptchaTile = (tileIndex: number) => {
+    askAreYouSure(() => {
+      setCaptchaTiles((prev) => {
+        const copy = [...prev];
+        copy[tileIndex] = !copy[tileIndex];
+        return copy;
+      });
+    });
+  };
+
+  return (
+    <div className="relative bg-black w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
+      <h1 className="text-white text-3xl">
+        Välkommen till det femte lagret av Albins inferno!
+      </h1>
+
+      {/* Ads */}
+      {ads.map((ad, index) => (
+        <PopUpAd
+          key={index}
+          index={index}
+          x={ad.x}
+          y={ad.y}
+          w={ad.w}
+          src={ad.src}
+          onClose={() => removeAd(index)}
+        />
+      ))}
+
+      {step === "question" && (
+        <div className="border border-zinc-700 rounded p-4 mt-6 bg-zinc-900/60">
+          <h2 className="text-xl text-white mb-1">Du läste välan ToS?</h2>
+          <p className="font-medium text-white">{QUESTION.question}</p>
+
+          <div className="mt-3 grid gap-2">
+            {QUESTION.options.map((opt, oi) => {
+              const base =
+                "w-full text-left px-3 py-2 rounded border transition text-white";
+              const cls =
+                correct === true
+                  ? `${base} border-green-400 bg-green-500/20`
+                  : correct === false
+                  ? `${base} border-red-400 bg-red-500/20`
+                  : `${base} border-zinc-700 hover:border-zinc-400`;
+
+              return (
+                <button key={oi} onClick={() => chooseOption(oi)} className={cls}>
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
         </div>
-    );
+      )}
+
+      {step === "captcha" && (
+        <div className="mt-6 w-full max-w-xl border border-zinc-700 rounded p-4 bg-zinc-900/60">
+          <h2 className="text-white text-xl font-semibold">
+            Verifiera att du är en människa. Klicka på alla rutor som innehåller Albin.
+          </h2>
+
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {captchaTiles.map((clicked, i) => (
+              <button
+                key={i}
+                onClick={() => clickCaptchaTile(i)}
+                className="relative aspect-square rounded border border-zinc-600 overflow-hidden hover:border-zinc-300"
+              >
+                <img
+                  src={CAPTCHA_IMG}
+                  alt="captcha"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+
+                {clicked && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                    <span className="text-red-500 text-6xl font-black">
+                      X
+                    </span>
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {captchaDone && (
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() =>
+                  askAreYouSure(() => {
+                    router.push("/sixthlayer");
+                  })
+                }
+                className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded"
+              >
+                Nästa sida
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      <ConfirmModal open={confirmOpen} onAnswer={handleConfirmAnswer} />
+
+      <ToSModal
+        open={tosOpen}
+        onClose={handleCloseTos}
+        onAccept={handleAcceptTos}
+        src={tosSrc}
+        variant={"wrong"}
+      />
+    </div>
+  );
 }
