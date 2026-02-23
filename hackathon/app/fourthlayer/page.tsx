@@ -21,7 +21,10 @@ export default function FourthLayer() {
         { name: "Ad 7", src: "/PopUpAds/candy.png" },
         { name: "Ad 8", src: "/PopUpAds/FORGET_YOUR_OLD_BORING_LIFE.mp4" },
         { name: "Ad 9", src: "/PopUpAds/DownloadACar.png" },
-        { name: "Ad 10", src: "/PopUpAds/Want_fast_computer_1.png" },
+        { name: "Ad 10", src: "/PopUpAds/Want_fast_computer_1.gif" },
+        { name: "Ad 11", src: "/PopUpAds/Best_Anti-Virus_found_HERE.gif" },
+        { name: "Ad 12", src: "/PopUpAds/hehasbecomethelongboy.png" },
+        { name: "Ad 13", src: "/PopUpAds/You_will_not_belive_what_this_goober_is_accused_of.gif" },
     ]);
     const [answer, setAnswer] = useState<number | null>(null);
     const [correct, setCorrect] = useState<boolean | null>(null);

@@ -24,6 +24,8 @@ export default function FifthLayer() {
         { name: "Ad 9", src: "/PopUpAds/DownloadACar.png" },
         { name: "Ad 10", src: "/PopUpAds/Want_fast_computer_1.gif" },
         { name: "Ad 11", src: "/PopUpAds/Best_Anti-Virus_found_HERE.gif" },
+        { name: "Ad 12", src: "/PopUpAds/hehasbecomethelongboy.png" },
+        { name: "Ad 13", src: "/PopUpAds/You_will_not_belive_what_this_goober_is_accused_of.gif" },
     ]);
 
   const removeAd = (indexToRemove: number) => {
