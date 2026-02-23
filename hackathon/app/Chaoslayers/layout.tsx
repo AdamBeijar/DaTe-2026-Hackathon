@@ -55,7 +55,7 @@ export default function ChaosLayout({ children }) {
           ${isHeads ? '✔️' : '❌'}
         </div>
         <div class="coin-back bg-yellow-600 border-2 border-yellow-800 rounded-full flex items-center justify-center text-white text-2xl shadow-lg">
-          ?
+            ${!isHeads ? '✔️' : '❌'}
         </div>
       </div>
     `;
