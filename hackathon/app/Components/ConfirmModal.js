@@ -4,7 +4,7 @@ export default function ConfirmModal({ open, onAnswer }) {
   if (!open) return null;
 
   return (
-  <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75">
+  <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/75">
       <div className="bg-black p-8 rounded shadow text-white">
         <p>Are you sure?</p>
 
