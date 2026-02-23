@@ -8,6 +8,10 @@ logs
 **/*.backup.*
 **/*.back.*
 
+hackathon/.next/
+hackathon/node_modules/
+hackathon/out/
+
 node_modules
 bower_components
 
