@@ -18,6 +18,10 @@ export default function FourthLayer() {
         { name: "Ad 4", src: "/PopUpAds/StartDatingRichMenNOW.mp4" },
         { name: "Ad 5", src: "/PopUpAds/VirusDetected.png" },
         { name: "Ad 6", src: "/PopUpAds/DaTebola.png" },
+        { name: "Ad 7", src: "/PopUpAds/candy.png" },
+        { name: "Ad 8", src: "/PopUpAds/FORGET_YOUR_OLD_BORING_LIFE.mp4" },
+        { name: "Ad 9", src: "/PopUpAds/DownloadACar.png" },
+        { name: "Ad 10", src: "/PopUpAds/Want_fast_computer_1.png" },
     ]);
     const [answer, setAnswer] = useState<number | null>(null);
     const [correct, setCorrect] = useState<boolean | null>(null);

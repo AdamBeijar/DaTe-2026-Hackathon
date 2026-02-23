@@ -10,25 +10,28 @@ import ToSModal from "@/app/Components/ToSModal";
 type Step = "question" | "captcha";
 
 export default function FifthLayer() {
-  const router = useRouter();
-
-  const [ads, setAds] = useState<any[]>([]);
-
-  const adChoises = [
-    { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
-    { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },
-    { name: "Ad 3", src: "/PopUpAds/spelkväll5.png" },
-    { name: "Ad 4", src: "/PopUpAds/StartDatingRichMenNOW.mp4" },
-    { name: "Ad 5", src: "/PopUpAds/VirusDetected.png" },
-    { name: "Ad 6", src: "/PopUpAds/DaTebola.png" },
-  ];
+    const router = useRouter();
+    const [ads, setAds] = useState([]);
+    const [adChoises, setAdChoises] = useState([
+        { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
+        { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },
+        { name: "Ad 3", src: "/PopUpAds/spelkväll5.png" },
+        { name: "Ad 4", src: "/PopUpAds/StartDatingRichMenNOW.mp4" },
+        { name: "Ad 5", src: "/PopUpAds/VirusDetected.png" },
+        { name: "Ad 6", src: "/PopUpAds/DaTebola.png" },
+        { name: "Ad 7", src: "/PopUpAds/candy.png" },
+        { name: "Ad 8", src: "/PopUpAds/FORGET_YOUR_OLD_BORING_LIFE.mp4" },
+        { name: "Ad 9", src: "/PopUpAds/DownloadACar.png" },
+        { name: "Ad 10", src: "/PopUpAds/Want_fast_computer_1.gif" },
+        { name: "Ad 11", src: "/PopUpAds/Best_Anti-Virus_found_HERE.gif" },
+    ]);
 
   const removeAd = (indexToRemove: number) => {
     setAds((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
 
   useEffect(() => {
-    let timer: any;
+    let timer: NodeJS.Timeout | undefined;
 
     const spawnAd = () => {
       const randomDelay = Math.floor(Math.random() * 8000) + 2000;
