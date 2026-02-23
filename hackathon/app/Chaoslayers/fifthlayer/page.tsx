@@ -211,7 +211,7 @@ export default function FifthLayer() {
               <button
                 onClick={() =>
                   askAreYouSure(() => {
-                    router.push("/sixthlayer");
+                    router.push("/Chaoslayers/sixthlayer");
                   })
                 }
                 className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded"
