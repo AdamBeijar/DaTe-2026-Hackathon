@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 export default function FourthLayer() {
     const router = useRouter();
     const [confirmOpen, setConfirmOpen] = useState(false);
-    const [ads, setAds] = useState([]);
+    const [ads, setAds] = useState<Array<{  x: number; y: number; w: number; src: string }>>([]);
     const [adChoises, setAdChoises] = useState([
         { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
         { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },
@@ -31,7 +31,7 @@ export default function FourthLayer() {
     const [TOSopen, setTosOpen] = useState(false);
     const [pendingAction, setPendingAction] = useState<null | (() => void)>(null);
     const [tosSrc, setTosSrc] = useState<string>("/Dantes ToS.htm");
-    const [correctDropdown, setCorrectDropdown] = useState(false);
+    // Remove correctDropdown state, use derived value instead
 
     const handleAcceptTos = () => {
     askAreYouSure(() => {
@@ -202,13 +202,7 @@ export default function FourthLayer() {
         });
     }
 
-    useEffect(() => {
-        if (selectedOption === "Finland") {
-            setCorrectDropdown(true);
-        } else  {
-            setCorrectDropdown(false);
-        }
-    }, [selectedOption]);
+    // Remove this effect, use derived value below
 
     const handleNextLayer = () => {
         askAreYouSure(() => {
@@ -222,7 +216,6 @@ export default function FourthLayer() {
             {ads.map((ad, index) => (
             <PopUpAd 
                 key={index} 
-                index={index} // Pass the index so the ad knows who it is
                 x={ad.x} 
                 y={ad.y} 
                 w={ad.w} 
@@ -292,7 +285,7 @@ export default function FourthLayer() {
                 src={tosSrc}
                 variant={"wrong"}
             />
-            {correctDropdown && correct &&
+            {selectedOption === "Finland" && correct &&
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={() => handleNextLayer()}>
                     Gå vidare
                 </button>

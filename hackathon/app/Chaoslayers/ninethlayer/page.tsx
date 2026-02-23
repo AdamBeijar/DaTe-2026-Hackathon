@@ -8,7 +8,6 @@ import ToSModal from "@/app/Components/ToSModal";
 import ConfirmModal from "@/app/Components/ConfirmModal";
 
 
-
 export default function NinethLayer() {
     const router = useRouter();
 
@@ -21,6 +20,14 @@ export default function NinethLayer() {
     const [wrongPasswordText, setWrongPasswordText] = useState(false);
 
     const aplhabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 1234567890!@#$%^&*()_+-=[]{}|;':,.<>/?`~";
+
+    useEffect(() => {
+    const savedPassword = localStorage.getItem("password");
+    if (savedPassword) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setOldPassword(savedPassword);
+    }
+}, []);
 
     useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -53,12 +60,18 @@ export default function NinethLayer() {
     // Timer Logic
     useEffect(() => {
         if (timeLeft <= 0) {
-            setIsLocked(false);
             return;
         }
 
         const timer = setInterval(() => {
-            setTimeLeft((prev) => prev - 1);
+            setTimeLeft((prev) => {
+                if (prev <= 1) {
+                    // Unlock when timer reaches zero
+                    setIsLocked(false);
+                    return 0;
+                }
+                return prev - 1;
+            });
         }, 1000);
 
         return () => clearInterval(timer);
@@ -79,10 +92,7 @@ export default function NinethLayer() {
         }
     };
 
-    useEffect(() => {
-        const storedPassword = localStorage.getItem("password") || "";
-        setOldPassword(storedPassword);
-    }, []);
+    // Removed useEffect for setting oldPassword, as it's now initialized directly in useState
 
     const executeSignUp = () => {
         setIsConfirmOpen(false);
@@ -103,7 +113,7 @@ export default function NinethLayer() {
 
     //ADS
 
-    const [ads, setAds] = useState([]);
+    const [ads, setAds] = useState<Array<{  x: number; y: number; w: number; src: string }>>([]);
     const [adChoises, setAdChoises] = useState([
         { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
         { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },
@@ -208,7 +218,7 @@ export default function NinethLayer() {
             {isConfirmOpen && (
                 <ConfirmModal 
                     open={isConfirmOpen}
-                    onAnswer={(answer) => {
+                    onAnswer={(answer: boolean) => {
                         if (answer) {
                             executeSignUp();
                         } else {

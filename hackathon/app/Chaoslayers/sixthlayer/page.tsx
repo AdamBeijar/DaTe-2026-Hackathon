@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 
 import PopUpAd from "../../Components/PopUpAd";
@@ -32,6 +32,10 @@ export default function SixthLayer() {
         setSkipTimerClickedOnce(true); 
     };
 
+    // Remove this effect, as setState should not be called synchronously inside effects
+    // The completion logic will be handled in the progress update callback below
+
+
 
     useEffect(() => {
     const interval = setInterval(() => {
@@ -45,6 +49,9 @@ export default function SixthLayer() {
             // 2. THE FINAL STOP: Only reachable after skipTimerClickedOnce is true
             if (prev >= 100) {
                 clearInterval(interval);
+                // Completion logic here instead of useEffect
+                setStatusText("Captcha klar! Förbereder nästa lager...");
+                setCompleted(true);
                 return 100;
             }
 
@@ -70,19 +77,16 @@ export default function SixthLayer() {
 
             // 5. Stall/Progress Logic
             if (rng < 0.25) return prev;
+
             return prev + 1;
         });
     }, 150);
 
     return () => clearInterval(interval);
-}, [skipTimerClickedOnce]); // Re-run when they click skip to unlock the cap
+}, [skipTimerClickedOnce]);
 
 
-    useEffect(() => {
-        if (progress === 100) {
-            onComplete();
-        }
-    }, [progress]);
+
 
 
     //TOS
@@ -134,7 +138,7 @@ export default function SixthLayer() {
 
     //ADS
 
-    const [ads, setAds] = useState([]);
+    const [ads, setAds] = useState<Array<{  x: number; y: number; w: number; src: string }>>([]);
     const [adChoises, setAdChoises] = useState([
         { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
         { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },

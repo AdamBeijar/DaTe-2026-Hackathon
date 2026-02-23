@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export default function ChaosLayout({ children }) {
+import { ReactNode } from 'react';
+
+export default function ChaosLayout({ children }: { children: ReactNode }) {
   // ----------------------------
   // Persistent mouse curse (global)
   // ----------------------------
@@ -15,7 +17,11 @@ export default function ChaosLayout({ children }) {
     const read = () => setCursed(localStorage.getItem("curse_mouse_inverted") === "1");
     read();
 
-    const onStorage = (e) => {
+    interface StorageEventWithKey extends StorageEvent {
+      key: string | null;
+    }
+
+    const onStorage = (e: StorageEventWithKey) => {
       if (e.key === "curse_mouse_inverted") read();
     };
     window.addEventListener("storage", onStorage);
@@ -44,8 +50,8 @@ export default function ChaosLayout({ children }) {
   useEffect(() => {
     if (!cursed) return;
 
-    const handleMove = (e) => {
-      const ghost = ghostRef.current;
+    const handleMove = (e: MouseEvent) => {
+      const ghost = ghostRef.current as HTMLElement | null;
       if (!ghost) return;
 
       const w = window.innerWidth;
@@ -65,8 +71,29 @@ export default function ChaosLayout({ children }) {
   // ----------------------------
   // Coinflip + delayed click (NOW with inverted click when cursed)
   // ----------------------------
+  const spawnCoin = (x: number, y: number, isHeads: boolean) => {
+    const coin = document.createElement('div');
+    coin.className = `fixed z-[99999] pointer-events-none coin-flip-animation`;
+    coin.style.left = `${x}px`;
+    coin.style.top = `${y}px`;
+
+    coin.innerHTML = `
+      <div class="coin-inner">
+        <div class="coin-front bg-yellow-500 border-2 border-yellow-700 rounded-full flex items-center justify-center text-white text-2xl shadow-lg">
+          ${isHeads ? '✔️' : '❌'}
+        </div>
+        <div class="coin-back bg-yellow-600 border-2 border-yellow-800 rounded-full flex items-center justify-center text-white text-2xl shadow-lg">
+          ${!isHeads ? '✔️' : '❌'}
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(coin);
+    setTimeout(() => coin.remove(), 800);
+  };
+
   useEffect(() => {
-    const handleGlobalClick = (event) => {
+    const handleGlobalClick = (event: MouseEvent) => {
       // 1) Allow our own synthetic delayed click through
       if (event.isTrusted === false || event.detail === 0.123) return;
 
@@ -125,34 +152,13 @@ export default function ChaosLayout({ children }) {
     return () => window.removeEventListener('click', handleGlobalClick, true);
   }, []);
 
-  const spawnCoin = (x, y, isHeads) => {
-    const coin = document.createElement('div');
-    coin.className = `fixed z-[99999] pointer-events-none coin-flip-animation`;
-    coin.style.left = `${x}px`;
-    coin.style.top = `${y}px`;
-
-    coin.innerHTML = `
-      <div class="coin-inner">
-        <div class="coin-front bg-yellow-500 border-2 border-yellow-700 rounded-full flex items-center justify-center text-white text-2xl shadow-lg">
-          ${isHeads ? '✔️' : '❌'}
-        </div>
-        <div class="coin-back bg-yellow-600 border-2 border-yellow-800 rounded-full flex items-center justify-center text-white text-2xl shadow-lg">
-          ${!isHeads ? '✔️' : '❌'}
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(coin);
-    setTimeout(() => coin.remove(), 800);
-  };
-
   return (
     <>
       {children}
 
       {/* Overlay för "inverterad känsla" */}
       {cursed && (
-        <div className="fixed inset-0 pointer-events-none z-[9997] mix-blend-difference bg-white/10" />
+        <div className="fixed inset-0 pointer-events-none z-[9997] mix-blend-difference" />
       )}
 
       {/* Ghost cursor */}

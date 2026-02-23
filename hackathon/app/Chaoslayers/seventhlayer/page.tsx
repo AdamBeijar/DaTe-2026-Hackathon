@@ -13,7 +13,7 @@ type Step = "privacy" | "tosQuestion";
 export default function SeventhLayer() {
   const router = useRouter();
 
-  const [ads, setAds] = useState<Ad[]>([]);
+  const [ads, setAds] = useState<Array<{  x: number; y: number; w: number; src: string }>>([]);
   const adChoises = useMemo(
     () => [
       { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
@@ -36,7 +36,7 @@ export default function SeventhLayer() {
   };
 
   useEffect(() => {
-    let timer: any;
+    let timer: ReturnType<typeof setTimeout>;
 
     const spawnAd = () => {
       const randomDelay = Math.floor(Math.random() * 8000) + 2000;
@@ -332,7 +332,7 @@ export default function SeventhLayer() {
               <button
                 onClick={() =>
                   askAreYouSure(() => {
-                    router.push("/eighthlayer");
+                    router.push("/Chaoslayers/eighthlayer");
                   })
                 }
                 className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded"

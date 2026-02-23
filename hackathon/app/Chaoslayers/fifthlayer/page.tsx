@@ -11,7 +11,7 @@ type Step = "question" | "captcha";
 
 export default function FifthLayer() {
     const router = useRouter();
-    const [ads, setAds] = useState([]);
+    const [ads, setAds] = useState<Array<{  x: number; y: number; w: number; src: string }>>([]);
     const [adChoises, setAdChoises] = useState([
         { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
         { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },
@@ -143,7 +143,6 @@ export default function FifthLayer() {
       {ads.map((ad, index) => (
         <PopUpAd
           key={index}
-          index={index}
           x={ad.x}
           y={ad.y}
           w={ad.w}

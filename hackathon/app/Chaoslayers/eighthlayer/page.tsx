@@ -110,7 +110,7 @@ export default function EighthLayer() {
 
     //ADS
 
-    const [ads, setAds] = useState([]);
+    const [ads, setAds] = useState<Array<{  x: number; y: number; w: number; src: string }>>([]);
     const [adChoises, setAdChoises] = useState([
         { name: "Ad 1", src: "/PopUpAds/AffirmYes.png" },
         { name: "Ad 2", src: "/PopUpAds/SigBeGuru.png" },
@@ -178,8 +178,8 @@ export default function EighthLayer() {
                 />
             ))}
             <div className="flex items-center justify-center mt-6 flex-col w-1/2">
-                <input type="text" id="username" className="bg-zinc-800 text-white p-2 rounded border border-zinc-700 w-1/2" placeholder="Ange ditt användarnamn" onClick={() => handleSelectedInput("username")} readOnly={true} value={username}/>
-                <input type={showPassword ? "text" : "password"} id="password" className="bg-zinc-800 text-white p-2 rounded border border-zinc-700 mt-2 w-1/2" placeholder="Ange ditt lösenord" onClick={() => handleSelectedInput("password")} value={password} readOnly={true}/>
+                <input type="text" id="username" className={`bg-zinc-800 text-white p-2 rounded border ${selectedInput === "username" ? "border-blue-500" : "border-zinc-700"} w-1/2`} placeholder="Ange ditt användarnamn" onClick={() => handleSelectedInput("username")} readOnly={true} value={username}/>
+                <input type={showPassword ? "text" : "password"} id="password" className={`bg-zinc-800 text-white p-2 rounded border ${selectedInput === "password" ? "border-blue-500" : "border-zinc-700"} mt-2 w-1/2`} placeholder="Ange ditt lösenord" onClick={() => handleSelectedInput("password")} value={password} readOnly={true}/>
                 <button className="ml-2 text-sm text-blue-500 mt-2" onClick={() => setShowPassword((prev) => !prev)}>{showPassword ? "Dölj lösenord" : "Visa lösenord"}</button>
             </div>
         <div className="border border-zinc-700 rounded p-4 mt-6 bg-zinc-900/60">
@@ -206,11 +206,11 @@ export default function EighthLayer() {
           </div>
           
         </div>
-        {username && password && (<button
+        {username && password && correct && (<button
             onClick={() => askAreYouSure(() => handleMovePage())}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-4"
           >
-            Logga in
+            Skapa konto
           </button>
           )}
             <ConfirmModal open={confirmOpen} onAnswer={handleConfirmAnswer} />

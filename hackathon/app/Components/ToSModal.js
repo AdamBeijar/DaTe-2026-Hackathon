@@ -5,11 +5,13 @@ import { useEffect, useRef } from "react";
 export default function ToSModal({ open, onClose, onAccept, src, variant = "initial" }) {
   if (!open) return null;
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const iframeRef = useRef(null);
 
   const acceptInHeader = variant === "initial";
   const injectAcceptIntoDoc = variant === "wrong";
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (!open || !injectAcceptIntoDoc) return;
 
