@@ -7,6 +7,9 @@ import PopUpAd from "../../Components/PopUpAd";
 import ToSModal from "@/app/Components/ToSModal";
 import ConfirmModal from "@/Components/ConfirmModal";
 
+
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 1234567890!@#$%^&*()_+-=[]{}|;':,.<>/?`~";
+
 export default function EighthLayer() {
 
     const router = useRouter();
@@ -30,7 +33,6 @@ export default function EighthLayer() {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
 
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 1234567890!@#$%^&*()_+-=[]{}|;':,.<>/?`~";
       // If no input is selected, don't do anything
       if (!selectedInput) return;
 

@@ -7,6 +7,7 @@ import PopUpAd from "../../Components/PopUpAd";
 import ToSModal from "@/app/Components/ToSModal";
 import ConfirmModal from "@/app/Components/ConfirmModal";
 
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 1234567890!@#$%^&*()_+-=[]{}|;':,.<>/?`~";
 
 export default function NinethLayer() {
     const router = useRouter();
@@ -19,7 +20,6 @@ export default function NinethLayer() {
     const [selectedInput, setSelectedInput] = useState("");
     const [wrongPasswordText, setWrongPasswordText] = useState(false);
 
-    const aplhabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 1234567890!@#$%^&*()_+-=[]{}|;':,.<>/?`~";
 
     useEffect(() => {
     const savedPassword = localStorage.getItem("password");
@@ -37,8 +37,8 @@ export default function NinethLayer() {
             event.preventDefault(); 
             
             if (event.key === " " || event.code === "Space") {
-                const randomIndex = Math.floor(Math.random() * aplhabet.length);
-                const randomLetter = aplhabet[randomIndex];
+                const randomIndex = Math.floor(Math.random() * alphabet.length);
+                const randomLetter = alphabet[randomIndex];
                 setPassword((prev) => prev + randomLetter);
             }
 
