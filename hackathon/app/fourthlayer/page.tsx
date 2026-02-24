@@ -215,7 +215,7 @@ export default function FourthLayer() {
             <h1 className="text-4xl text-white">Välkommen till fjärde lagret, Girighetens krets!</h1>
             <h3 className="text-lg text-zinc-300 text-center mt-2">Eftersom att du inte kunde hålla dig från att vara glupsk och bara trycka dig igenom våra Terms and Conditions får du nu i all evighet svara rätt på våra frågor!
             <br />
-            Sedan vänligen välj ditt hemland i dropdown menyn!
+            Sedan vänligen välj landet du befinner dig i, i dropdown menyn!
             </h3>
 
             {ads.map((ad, index) => (
@@ -229,7 +229,7 @@ export default function FourthLayer() {
             />
             ))}
             <div className="flex items-center justify-center mt-6 flex-col w-1/2">
-                  <h2 className="text-2xl text-white mt-6">Från vilket land är du?</h2>
+                  <h2 className="text-2xl text-white mt-6">Vilket land befinner du dig i?</h2>
                   <div className="relative inline-block text-left mt-2 w-1/5">
                     <button
                         onClick={() => handleDropdownOpen()}

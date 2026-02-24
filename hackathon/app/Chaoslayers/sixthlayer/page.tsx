@@ -196,15 +196,6 @@ export default function SixthLayer() {
     
     return (
         <div className="relative bg-red-950 w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
-            <h1 className="text-white text-3xl">Välkommen till det sjätte lagret av Albins inferno, !</h1>
-            <h2 className="text-lg text-zinc-300 text-center mt-3 mb-5">
-                Vi börjar närma oss kärnan av infernot!
-            </h2>
-            <h3 className="text-lg text-zinc-300 text-center mt-3 mb-0">
-            Du kanske märker att inte alla dina klick riktigt går igenom som dom brukade göra. Så nu är det bara att lugna ner dig och inte låta frustrationen ta överhanden. 
-            <br />
-            Nu måste vi vänta på att Captchan laddas klart innan vi kan gå vidare.
-            </h3>
             {ads.map((ad, index) => (
                 <PopUpAd
                     key={index}
@@ -215,6 +206,17 @@ export default function SixthLayer() {
                     onClose={() => removeAd(index)}
                 />
             ))}
+            <div className="flex items-center justify-center flex-col w-full animate-shake-subliminal">
+            <h1 className="text-white text-3xl">Välkommen till det sjätte lagret av Albins inferno, Kätternas stad!</h1>
+            <h2 className="text-lg text-zinc-300 text-center mt-3 mb-5">
+                Vi börjar närma oss kärnan av infernot!
+            </h2>
+            <h3 className="text-lg text-zinc-300 text-center mt-3 mb-0">
+            Du kanske märker att alla dina klick inte riktigt går igenom som dom brukade göra. Så nu är det bara att lugna ner dig och inte låta frustrationen ta över. 
+            <br />
+            Nu måste vi vänta på att Captchan laddas klart innan vi kan gå vidare.
+            </h3>
+            
             {!completed && ( <div className="w-full flex items-center justify-center flex-col">
             <h2 className="text-white text-xl mt-2">The Captcha is loading please wait...</h2>
             <p className="text-xs text-zinc-500 italic animate-pulse">{statusText}</p>
@@ -281,6 +283,7 @@ export default function SixthLayer() {
               </button>
             </div>
           )}
+        </div>
             <ToSModal
                 open={tosOpen}
                 onClose={handleCloseTos}

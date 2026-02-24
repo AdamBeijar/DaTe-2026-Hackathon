@@ -110,7 +110,7 @@ export default function ThirdLayer() {
             Välkommen till tredje cirkeln av Albins inferno, Frosseriets krets!
           </h1>
           <h3 className="text-lg text-zinc-300 text-center">
-            Vi märkte på förra lagret att du är lite ivrig att bara klicka på allt du ser och rör sig, så nu får du förevigt lida av att måsta godkänna alla dina tryck!
+            Vi märkte på förra lagret att du är lite väl ivrig att bara klicka på allt du ser, så nu får du förevigt lida av att måsta godkänna alla dina tryck!
             < br />
             Nu vänligen läs våra användarvillkor innan du går vidare, det är viktigt att du vet vad du godkänner!
           </h3>

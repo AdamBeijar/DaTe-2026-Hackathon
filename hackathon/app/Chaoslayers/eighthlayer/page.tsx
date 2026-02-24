@@ -172,6 +172,17 @@ export default function EighthLayer() {
     }, []);
     return (
         <div className="relative bg-red-800 w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
+          {ads.map((ad, index) => (
+                <PopUpAd
+                    key={index}
+                    x={ad.x}
+                    y={ad.y}
+                    w={ad.w}
+                    src={ad.src}
+                    onClose={() => removeAd(index)}
+                />
+            ))}
+            <div className="flex items-center justify-center flex-col w-full animate-shake-medium">
             <h1 className="text-white text-3xl">Välkommen till det åttonde lagret av Albins inferno, Begrägeriets krets!</h1>
             <h3 className="text-white text-center mt-4">
                 Den <span className="text-red-400">Ondskefulla fabriken</span> tackar dig för ditt fina och lättsamma sammarbete. Du kanske märkte att du inte kom åt den fina Nej knappen fast hur mycket våld du än försökte använda för att få fast den.
@@ -182,16 +193,6 @@ export default function EighthLayer() {
                   <br />
                 Har du testat trycka på space?
             </h3>
-            {ads.map((ad, index) => (
-                <PopUpAd
-                    key={index}
-                    x={ad.x}
-                    y={ad.y}
-                    w={ad.w}
-                    src={ad.src}
-                    onClose={() => removeAd(index)}
-                />
-            ))}
             <div className="flex items-center justify-center mt-6 flex-col w-1/2">
                 <input type="text" id="username" className={`bg-zinc-800 text-white p-2 rounded border ${selectedInput === "username" ? "border-blue-500" : "border-zinc-700"} w-1/2`} placeholder="Ange ditt användarnamn" onClick={() => handleSelectedInput("username")} readOnly={true} value={username}/>
                 <input type={showPassword ? "text" : "password"} id="password" className={`bg-zinc-800 text-white p-2 rounded border ${selectedInput === "password" ? "border-blue-500" : "border-zinc-700"} mt-2 w-1/2`} placeholder="Ange ditt lösenord" onClick={() => handleSelectedInput("password")} value={password} readOnly={true}/>
@@ -236,6 +237,7 @@ export default function EighthLayer() {
                 src={tosSrc}
                 variant={"wrong"}
             />
+            </div>
         </div>
     );
 }

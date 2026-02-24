@@ -35,13 +35,19 @@ export default function NinethLayer() {
     setPendingAction(null);
   };
 
-    useEffect(() => {
-    const savedPassword = localStorage.getItem("password");
-    if (savedPassword) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setOldPassword(savedPassword);
+    const handleCorrectPassword = () => {
+        localStorage.setItem("rightPassword", "true");
+        router.push("/tenthlayer");
     }
-}, []);
+
+    useEffect(() => {
+        const savedPassword = localStorage.getItem("password");
+        localStorage.removeItem("rightPassword");
+        if (savedPassword) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setOldPassword(savedPassword);
+        }
+    }, []);
 
     useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -104,6 +110,8 @@ export default function NinethLayer() {
         }
         if (password.length === oldPassword.length) {
             setIsConfirmOpen(true);
+        } else if (password === oldPassword) {
+            handleCorrectPassword();
         } else {
             askAreYouSure(() => {
                 setWrongPasswordText(true);
@@ -123,7 +131,7 @@ export default function NinethLayer() {
         }
 
         if (password.length === oldPassword.length) {
-            router.push("/Chaoslayers/tenthlayer");
+            router.push("/tenthlayer");
         } else {
             alert("Fel! Försök igen.");
             setPassword("");
@@ -200,9 +208,10 @@ export default function NinethLayer() {
                     onClose={() => removeAd(index)}
                 />
             ))}
+            <div className="flex items-center justify-center flex-col w-full animate-shake-high">
             <h1 className="text-white text-3xl font-bold">Välkommen till det nionde lagret av Albins inferno, Förräderiets krets!</h1>
             <h3 className="text-white text-center mt-4">
-                Hoppas du kommer ihåg ditt lösenord från det förra lagret för nu måste du skriva in det igen. Och det bör hända snabbt, för varje sekund som går så närmar du dig att måsta göra om hela processen för att skapa ett konto!
+                Hoppas du kommer ihåg ditt lösenord från det förra lagret för nu måste du skriva in det igen. Och det bör hända SNABBT, för varje sekund som går så närmar du dig att måsta göra om hela processen igen för att skapa ett konto!
                 <br />
                 Försök att inte bli stressad, det är bara att skriva in ditt lösenord :)
             </h3>
@@ -237,6 +246,7 @@ export default function NinethLayer() {
             </button>
 
             {wrongPasswordText && <div className="text-red-500 bg-zinc-900 p-2 mt-4 rounded border border-white">{"FEL LÖSENORD, menade du \"" + oldPassword + "\"?"}</div>}
+            </div>
 
             {isConfirmOpen && (
                 <ConfirmModal 

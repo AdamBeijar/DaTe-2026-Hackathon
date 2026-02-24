@@ -239,6 +239,10 @@ export default function SeventhLayer() {
 
   return (
     <div className="relative bg-red-900 w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
+      {/*ads.map((ad, index) => (
+        <PopUpAd key={index} x={ad.x} y={ad.y} w={ad.w} src={ad.src} onClose={() => removeAd(index)} />
+      ))*/}
+      <div className="flex items-center justify-center flex-col w-full animate-shake-low">
       <h1 className="text-white text-3xl">Välkommen till det sjunde lagret av Albins inferno, Våldets krets!</h1>
       <h3 className="text-white text-center mt-4">
         Efter mycket om och men har äntligen Captchan laddats klart och du har klarat den, grattis, du börjar också känna på dig att du är allt närmare slutet av detta helvete som Albin har skapat!
@@ -247,9 +251,7 @@ export default function SeventhLayer() {
       </h3>
 
       {/* Ads */}
-      {ads.map((ad, index) => (
-        <PopUpAd key={index} x={ad.x} y={ad.y} w={ad.w} src={ad.src} onClose={() => removeAd(index)} />
-      ))}
+      
 
       {/* Privacy step */}
       {step === "privacy" && (
@@ -312,7 +314,7 @@ export default function SeventhLayer() {
               if (idx === correctIndex) {
                 const style =
                   dantePos
-                    ? { position: "fixed" as const, left: dantePos.x, top: dantePos.y, zIndex: 40, width: 260 }
+                    ? { position: "absolute" as const, left: dantePos.x, top: dantePos.y, zIndex: 40, width: 260 }
                     : undefined;
 
                 return (
@@ -352,6 +354,7 @@ export default function SeventhLayer() {
           )}
         </div>
       )}
+      </div>
 
       <ToSModal
         open={tosOpen}

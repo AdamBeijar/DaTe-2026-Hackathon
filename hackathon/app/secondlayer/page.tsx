@@ -54,8 +54,8 @@ export default function SecondLayer() {
     
     return (
         <div className="bg-black w-screen h-screen flex items-center justify-center flex-col gap-4">
-            <h1 className="text-white text-3xl">Välkommen till andra lagret av Albins inferno, Lustans krets!</h1>
-            <h3 className="text-lg text-zinc-300 text-center">Vi märkte på förra lagret att du var odöpt på denna hemsida och behövde skaffa ett konto. Nu vänligen svara på detta frågor</h3>
+            <h1 className="text-white text-3xl">Välkommen till andra lagret av Albins inferno, Lustens krets!</h1>
+            <h3 className="text-lg text-zinc-300 text-center">Vi märkte på förra lagret att du var odöpt på denna hemsida och behövde skaffa ett konto. Nu vänligen svara på dessa frågor</h3>
 
             < br />
             <div className="bg-gray-800 p-4 rounded">
