@@ -28,6 +28,10 @@ export default function FifthLayer() {
         { name: "Ad 13", src: "/PopUpAds/You_will_not_belive_what_this_goober_is_accused_of.gif" },
     ]);
 
+    useEffect(() => {
+        localStorage.setItem("curse_mouse_inverted", "0");
+    }, []);
+
   const removeAd = (indexToRemove: number) => {
     setAds((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
@@ -135,12 +139,17 @@ export default function FifthLayer() {
 
   return (
     <div className="relative bg-black w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
-      <h1 className="text-white text-3xl">
-        Välkommen till det femte lagret av Albins inferno!
-      </h1>
+        <h1 className="text-white text-4xl">
+            Välkommen till det femte lagret av Albins inferno, Vredens krets!
+        </h1>
+       
+        <h3 className="text-lg text-zinc-300 text-center">
+        Eftersom du har levt ett girigt liv på internetet så kommer du nu att plågas av oändliga pop-up annonser som du måste klicka bort innan du kan gå vidare! 
+        <br />
+        Dessutom så måste du svara rätt på vår fråga och klara vår captcha för att kunna gå vidare, lycka till!</h3>
 
       {/* Ads */}
-      {ads.map((ad, index) => (
+      {/*ads.map((ad, index) => (
         <PopUpAd
           key={index}
           x={ad.x}
@@ -149,10 +158,10 @@ export default function FifthLayer() {
           src={ad.src}
           onClose={() => removeAd(index)}
         />
-      ))}
+      ))*/}
 
       {step === "question" && (
-        <div className="border border-zinc-700 rounded p-4 mt-6 bg-zinc-900/60">
+        <div className="border border-zinc-700 rounded p-4 mt-6 bg-gray-900">
           <h2 className="text-xl text-white mb-1">Du läste välan ToS?</h2>
           <p className="font-medium text-white">{QUESTION.question}</p>
 
@@ -215,9 +224,9 @@ export default function FifthLayer() {
                     router.push("/Chaoslayers/sixthlayer");
                   })
                 }
-                className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded"
+                className="bg-green-500 text-white px-4 py-2 hover:bg-green-600 rounded-xl m-6"
               >
-                Nästa sida
+                Gå vidare 
               </button>
             </div>
           )}

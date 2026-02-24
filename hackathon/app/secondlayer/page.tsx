@@ -54,49 +54,70 @@ export default function SecondLayer() {
     
     return (
         <div className="bg-black w-screen h-screen flex items-center justify-center flex-col gap-4">
-            <h1 className="text-white text-3xl">Välkommen till andra lagret av Albins inferno!</h1>
+            <h1 className="text-white text-3xl">Välkommen till andra lagret av Albins inferno, Lustans krets!</h1>
+            <h3 className="text-lg text-zinc-300 text-center">Vi märkte på förra lagret att du var odöpt på denna hemsida och behövde skaffa ett konto. Nu vänligen svara på detta frågor</h3>
+
             < br />
-            <div className="flex gap-2">
-                <div className="text-white">Vill du skapa ett konto?</div>
+            <div className="bg-gray-800 p-4 rounded">
+            <div className="flex flex-col items-center justify-center gap-4">
+            <div className="flex flex-col items-center justify-center gap-2">
+                <div>
+                    <span className="text-white">Vill du skapa ett konto?   </span>
+                    {answers.createAccount === true && <span className="">✔️</span>}
+                </div>
+                <div className="flex items-center gap-4">
                 <button 
                     onClick={() => setIsOpenAccount(!isOpenAccount)}
-                    className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600"
+                    className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600 rounded-lg"
                 >Ja</button>
                 {isOpenAccount && ConfirmModal({ open: isOpenAccount, onAnswer: (answer) => handleAnswer(answer, "createAccount") })}
                 <button
                     onClick={() => setIsOpenNo(!isOpenNo)}
-                    className="bg-red-500 text-white px-4 py-2 hover:bg-red-600"
+                    className="bg-red-500 text-white px-4 py-2 hover:bg-red-600 rounded-lg"
                 >Nej</button>
                 {isOpenNo && ConfirmModal({ open: isOpenNo, onAnswer: (answer) => handleAnswer(answer, "createAccount") })}
+                </div>
             </div>
-            <div className="flex gap-2">
-                <div className="text-white">Är du DaTe medlem?</div>
+            <div className="flex flex-col items-center justify-center gap-2">
+                <div>
+                <span className="text-white">Är du DaTe medlem?  </span>
+                {answers.dateMember === true && <span className="">✔️</span>}
+                </div>
+                <div className="flex items-center gap-4">
                 <button 
                     onClick={() => setIsOpenDate(!isOpenDate)}
-                    className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600"
+                    className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600 rounded-lg"
                 >Ja</button>
                 {isOpenDate && ConfirmModal({ open: isOpenDate, onAnswer: (answer) => handleAnswer(answer, "dateMember") })}
                 <button
                     onClick={() => setIsOpenNo(!isOpenNo)}
-                    className="bg-red-500 text-white px-4 py-2 hover:bg-red-600"
+                    className="bg-red-500 text-white px-4 py-2 hover:bg-red-600 rounded-lg"
                 >Nej</button>
                 {isOpenNo && ConfirmModal({ open: isOpenNo, onAnswer: (answer) => handleAnswer(answer, "dateMember") })}
             </div>
-            <div className="flex gap-2">
-                <div className="text-white">Är du över 18?</div>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-2">
+                    <div>
+                <span className="text-white">Är du över 18?   </span>
+                {answers.over18 === true && <span className="text-green-500">✔️</span>}
+                </div>
+                <div className="flex items-center gap-4">
                 <button 
                         onClick={() => setIsOpenOver18(!isOpenOver18)}
-                    className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600"
+                    className="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600 rounded-lg"
                 >Ja</button>
                 {isOpenOver18 && ConfirmModal({ open: isOpenOver18, onAnswer: (answer) => handleAnswer(answer, "over18") })}
                 <button
                     onClick={() => setIsOpenNo(!isOpenNo)}
-                        className="bg-red-500 text-white px-4 py-2 hover:bg-red-600"
+                        className="bg-red-500 text-white px-4 py-2 hover:bg-red-600 rounded-lg"
                 >Nej</button>
                 {isOpenNo && ConfirmModal({ open: isOpenNo, onAnswer: (answer) => handleAnswer(answer, "over18") })}
+                </div>
             </div>
-            {allTrue && <button className="bg-green-500 text-white px-4 py-2 hover:bg-green-600" onClick={() => setIsOpenEnd(true)}>Gå vidare</button>}
+            {allTrue && <button className="bg-green-500 text-white px-4 py-2 hover:bg-green-600 rounded-xl" onClick={() => setIsOpenEnd(true)}>Gå vidare</button>}
             {isOpenEnd && ConfirmModal({ open: isOpenEnd, onAnswer: (answer) => handleEndingAnswer(answer) })}
+            </div>
+            </div>
 
         </div>
     );

@@ -195,8 +195,16 @@ export default function SixthLayer() {
 
     
     return (
-        <div className="relative bg-black w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
-            <h1 className="text-white text-3xl">Välkommen till det sjätte lagret av Albins inferno!</h1>
+        <div className="relative bg-red-950 w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
+            <h1 className="text-white text-3xl">Välkommen till det sjätte lagret av Albins inferno, !</h1>
+            <h2 className="text-lg text-zinc-300 text-center mt-3 mb-5">
+                Vi börjar närma oss kärnan av infernot!
+            </h2>
+            <h3 className="text-lg text-zinc-300 text-center mt-3 mb-0">
+            Du kanske märker att inte alla dina klick riktigt går igenom som dom brukade göra. Så nu är det bara att lugna ner dig och inte låta frustrationen ta överhanden. 
+            <br />
+            Nu måste vi vänta på att Captchan laddas klart innan vi kan gå vidare.
+            </h3>
             {ads.map((ad, index) => (
                 <PopUpAd
                     key={index}
@@ -213,7 +221,7 @@ export default function SixthLayer() {
             <div className="w-1/2 h-8 bg-gray-900 border-2 border-zinc-700 relative overflow-hidden">
                 {/* The Actual Bar */}
                 <div 
-                className="h-full bg-red-600 transition-all duration-500 ease-in-out"
+                className="h-full bg-green-600 transition-all duration-500 ease-in-out"
                 style={{ width: `${progress}%` }}
                 />
                 
@@ -221,7 +229,7 @@ export default function SixthLayer() {
                 <div className="absolute inset-0 bg-white/5 mix-blend-overlay animate-pulse pointer-events-none" />
             </div>
             {skipTimerButtonVisible && (
-                <button className="mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={handleSkipLoading}>Skip Loading</button>
+                <button className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handleSkipLoading}>Skip Loading</button>
             )}
             <p className="text-white font-mono">{progress}%</p>
             
@@ -230,7 +238,7 @@ export default function SixthLayer() {
                 <div className="flex flex-col items-center gap-4 mt-6">
                     <h2 className="text-green-500 text-2xl">Captcha Completed!</h2>
                     {completed && (
-                        <div className="border border-zinc-700 rounded p-4 mt-6 bg-zinc-900/60 w-full max-w-md">
+                        <div className="border border-zinc-700 rounded p-4 mt-6 bg-zinc-800">
                             <h2 className="text-xl text-white mb-1">Du läste välan ToS?</h2>
                             <p className="font-medium text-white">{QUESTION.question}</p>
                             {}
@@ -267,9 +275,9 @@ export default function SixthLayer() {
                     router.push("/Chaoslayers/seventhlayer");
                   })
                 }
-                className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded"
+                className="bg-green-500 text-white px-4 py-2 hover:bg-green-600 rounded-xl m-2"
               >
-                Nästa sida
+                Gå vidare
               </button>
             </div>
           )}

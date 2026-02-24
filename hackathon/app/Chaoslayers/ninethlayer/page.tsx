@@ -19,7 +19,21 @@ export default function NinethLayer() {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [selectedInput, setSelectedInput] = useState("");
     const [wrongPasswordText, setWrongPasswordText] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
 
+
+
+    const askAreYouSure = (action: () => void) => {
+    setPendingAction(() => action);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmAnswer = (answer: boolean) => {
+    setConfirmOpen(false);
+    if (answer && pendingAction) pendingAction();
+    setPendingAction(null);
+  };
 
     useEffect(() => {
     const savedPassword = localStorage.getItem("password");
@@ -82,13 +96,19 @@ export default function NinethLayer() {
 
     const handleSignUp = () => {
         if (isLocked) {
-            setWrongPasswordText(true);
+            askAreYouSure(() => {
+                setWrongPasswordText(true);
+                setPassword("");
+            });
             return;
         }
         if (password.length === oldPassword.length) {
             setIsConfirmOpen(true);
         } else {
-            setWrongPasswordText(true);
+            askAreYouSure(() => {
+                setWrongPasswordText(true);
+                setPassword("");
+            });
         }
     };
 
@@ -169,7 +189,7 @@ export default function NinethLayer() {
     }, []);
 
     return (
-        <div className="relative bg-black w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
+        <div className="relative bg-red-700 w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
             {ads.map((ad, index) => (
                 <PopUpAd
                     key={index}
@@ -180,13 +200,18 @@ export default function NinethLayer() {
                     onClose={() => removeAd(index)}
                 />
             ))}
-            <h1 className="text-white text-3xl font-bold italic">Nionde Lagret</h1>
-            <div className="text-white">SKRIV IN DITT LÖSENORD IGEN INOM TIMERN ELLER GÅ TILLBAKS TILL BÖRJAN</div>
+            <h1 className="text-white text-3xl font-bold">Välkommen till det nionde lagret av Albins inferno, Förräderiets krets!</h1>
+            <h3 className="text-white text-center mt-4">
+                Hoppas du kommer ihåg ditt lösenord från det förra lagret för nu måste du skriva in det igen. Och det bör hända snabbt, för varje sekund som går så närmar du dig att måsta göra om hela processen för att skapa ett konto!
+                <br />
+                Försök att inte bli stressad, det är bara att skriva in ditt lösenord :)
+            </h3>
+            <div className="text-white mt-4">SKRIV IN DITT LÖSENORD IGEN INOM TIMERN ELLER GÅ TILLBAKS TILL BÖRJAN</div>
             {/* Loading Bar Container */}
-            <div className="w-1/2 h-6 bg-zinc-900 border border-zinc-700 rounded-full overflow-hidden relative">
+            <div className="w-1/2 bg-zinc-900 border border-zinc-700 rounded-full overflow-hidden relative mt-4 h-10">
                 {/* The Progress Fill */}
                 <div 
-                    className="h-full bg-red-600 transition-all duration-1000 ease-linear"
+                    className="h-full bg-red-600 transition-all duration-1000 ease-linear text-2xl"
                     style={{ width: `${progressWidth}%` }}
                 />
                 {/* Centered Timer Text */}
@@ -200,20 +225,18 @@ export default function NinethLayer() {
                 value={password}
                 readOnly 
                 placeholder="Ange ditt lösenord igen"
-                className="bg-zinc-800 text-white p-3 rounded border border-zinc-600 w-1/2 text-center focus:outline-none focus:border-red-500"
+                className="bg-zinc-800 text-white p-3 rounded border border-zinc-600 w-1/2 text-center focus:outline-none focus:border-red-500 mt-4"
                 onClick={() => handleSelectedInput("password")}
             />
 
             <button 
-                className={`font-bold py-3 px-8 rounded transition-colors ${
-                    'bg-red-600 hover:bg-red-700 text-white'
-                }`}
+                className={`bg-green-500 text-white px-4 py-2 hover:bg-green-600 rounded-xl m-2 font-bold`}
                 onClick={handleSignUp}
             >
                 Skapa konto 
             </button>
 
-            {wrongPasswordText && <div className="text-red-500">{"FEL LÖSENORD, menade du \"" + oldPassword + "\"?"}</div>}
+            {wrongPasswordText && <div className="text-red-500 bg-zinc-900 p-2 mt-4 rounded border border-white">{"FEL LÖSENORD, menade du \"" + oldPassword + "\"?"}</div>}
 
             {isConfirmOpen && (
                 <ConfirmModal 
@@ -227,6 +250,7 @@ export default function NinethLayer() {
                     }} 
                 />
             )}
+            <ConfirmModal open={confirmOpen} onAnswer={handleConfirmAnswer} />
         </div>
     );
 }

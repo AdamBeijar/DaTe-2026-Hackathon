@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import PopUpAd from "../../Components/PopUpAd";
@@ -34,6 +34,10 @@ export default function SeventhLayer() {
   const removeAd = (indexToRemove: number) => {
     setAds((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
+
+  useEffect(() => {
+    localStorage.setItem("curse_mouse_inverted", "1");
+  }, []);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -234,8 +238,13 @@ export default function SeventhLayer() {
   };
 
   return (
-    <div className="relative bg-black w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
-      <h1 className="text-white text-3xl">Välkommen till det sjunde lagret av Albins inferno!</h1>
+    <div className="relative bg-red-900 w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
+      <h1 className="text-white text-3xl">Välkommen till det sjunde lagret av Albins inferno, Våldets krets!</h1>
+      <h3 className="text-white text-center mt-4">
+        Efter mycket om och men har äntligen Captchan laddats klart och du har klarat den, grattis, du börjar också känna på dig att du är allt närmare slutet av detta helvete som Albin har skapat!
+        <br />
+        Nu väntar en viktig integritetsfråga som du måste svara på.
+      </h3>
 
       {/* Ads */}
       {ads.map((ad, index) => (
@@ -298,7 +307,7 @@ export default function SeventhLayer() {
               const base = "w-full text-left px-3 py-2 rounded border transition text-white";
               const cls = answeredCorrect
                 ? `${base} border-green-400 bg-green-500/20`
-                : `${base} border-zinc-700 hover:border-zinc-400`;
+                : `${base} border-zinc-700 hover:border-zinc-400 bg-zinc-900/60`;
 
               if (idx === correctIndex) {
                 const style =
@@ -335,9 +344,9 @@ export default function SeventhLayer() {
                     router.push("/Chaoslayers/eighthlayer");
                   })
                 }
-                className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded"
+                className="bg-green-500 text-white px-4 py-2 hover:bg-green-600 rounded-xl "
               >
-                Nästa sida
+                Gå vidare 
               </button>
             </div>
           )}

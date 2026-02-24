@@ -107,8 +107,13 @@ export default function ThirdLayer() {
       {step === "welcome" && (
         <>
           <h1 className="text-4xl text-white text-center">
-            Välkommen till tredje cirkeln av Albins inferno!
+            Välkommen till tredje cirkeln av Albins inferno, Frosseriets krets!
           </h1>
+          <h3 className="text-lg text-zinc-300 text-center">
+            Vi märkte på förra lagret att du är lite ivrig att bara klicka allt du ser och rör dig, så nu får du förevigt lida av att måsta godkänna alla dina tryck!
+            < br />
+            Nu vänligen läs våra användarvillkor innan du går vidare, det är viktigt att du vet vad du godkänner!
+          </h3>
 
           <button
             onClick={() => askAreYouSure(openInitialTos)}
@@ -159,7 +164,7 @@ export default function ThirdLayer() {
             <div className="mt-6 flex justify-end">
               <button
                 onClick={() => askAreYouSure(() => router.push("/fourthlayer"))}
-                className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded"
+                className="bg-green-500 text-white px-4 py-2 hover:bg-green-600 rounded-xl"
               >
                 Gå vidare
               </button>

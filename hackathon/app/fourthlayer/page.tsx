@@ -212,7 +212,12 @@ export default function FourthLayer() {
 
     return (
         <div className="relative bg-black w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
-            <h1 className="text-4xl text-white">Fourth Layer</h1>
+            <h1 className="text-4xl text-white">Välkommen till fjärde lagret, Girighetens krets!</h1>
+            <h3 className="text-lg text-zinc-300 text-center mt-2">Eftersom att du inte kunde hålla dig från att vara glupsk och bara trycka dig igenom våra Terms and Conditions får du nu i all evighet svara rätt på våra frågor!
+            <br />
+            Sedan vänligen välj ditt hemland i dropdown menyn!
+            </h3>
+
             {ads.map((ad, index) => (
             <PopUpAd 
                 key={index} 
@@ -223,7 +228,38 @@ export default function FourthLayer() {
                 onClose={() => removeAd(index)} // Pass the delete function
             />
             ))}
-            <div className="border border-zinc-700 rounded p-4 mt-6">
+            <div className="flex items-center justify-center mt-6 flex-col w-1/2">
+                  <h2 className="text-2xl text-white mt-6">Från vilket land är du?</h2>
+                  <div className="relative inline-block text-left mt-2 w-1/5">
+                    <button
+                        onClick={() => handleDropdownOpen()}
+                        className="bg-gray-900 text-white px-4 py-2 rounded w-full border border-zinc-700 hover:border-zinc-400"
+                        >
+                        {selectedOption || "Välj ett alternativ"}
+                        </button>
+                        {dropdownOpen && (
+                        <div className="absolute mt-2 w-56 h-56 overflow-auto shadow-lg bg-white ring-1 ring-black ring-opacity-5 right-[-2rem]">
+                            <div className="py-1">
+                            {dropdownOptions.map((option) => (
+                                <button
+                                key={option}
+                                onClick={() => handleDropdownSelect(option)}
+                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >
+                                {option}
+                                </button>
+                            ))}
+                            </div>
+                        </div>
+                        )}
+                    {selectedOption && selectedOption !== "Finland" && (
+                        <p className="text-red-500 mt-2 w-full text-center">Är du helt säker på det?</p>
+                    )}
+                    {selectedOption === "Finland" && (
+                        <p className="text-green-500 mt-2 w-full text-center">Fantastiskt val!</p>
+                    )}
+                </div>
+            <div className="border border-zinc-700 rounded p-4 mt-6 bg-gray-900">
                 <h1 className="text-xl text-white mb-1">Du läste välan ToS?</h1>
                 <p className="font-medium text-white">
                   {QUESTION.question}
@@ -248,34 +284,7 @@ export default function FourthLayer() {
                   })}
                 </div>
               </div>
-              <div className="">
-                  <h2 className="text-2xl text-white mt-6">Från vilket land är du?</h2>
-                  <div className="relative inline-block text-left mt-2">
-                    <button
-                        onClick={() => handleDropdownOpen()}
-                        className="bg-gray-700 text-white px-4 py-2 rounded"
-                        >
-                        {selectedOption || "Välj ett alternativ"}
-                        </button>
-                        {dropdownOpen && (
-                        <div className="origin-top-right absolute right-0 mt-2 w-56 h-48 overflow-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                            <div className="py-1">
-                            {dropdownOptions.map((option) => (
-                                <button
-                                key={option}
-                                onClick={() => handleDropdownSelect(option)}
-                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                >
-                                {option}
-                                </button>
-                            ))}
-                            </div>
-                        </div>
-                        )}
-                    {selectedOption && selectedOption !== "Finland" && (
-                        <p className="text-red-500 mt-2">Är du helt säker på det?</p>
-                    )}
-                </div>
+              
               </div>
             <ConfirmModal open={confirmOpen} onAnswer={handleConfirmAnswer} />
             <ToSModal
@@ -286,7 +295,7 @@ export default function FourthLayer() {
                 variant={"wrong"}
             />
             {selectedOption === "Finland" && correct &&
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={() => handleNextLayer()}>
+                <button className="bg-green-500 text-white px-4 py-2 hover:bg-green-600 rounded-xl m-6" onClick={() => handleNextLayer()}>
                     Gå vidare
                 </button>
             }
