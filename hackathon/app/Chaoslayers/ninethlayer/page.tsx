@@ -216,7 +216,7 @@ export default function NinethLayer() {
                 />
                 {/* Centered Timer Text */}
                 <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white uppercase tracking-widest">
-                    {isLocked ? timeLeft + " s" : "Så känns det om man förreder folk"}
+                    {isLocked ? timeLeft + " s" : "HA du trodde faktiskt, du känner dig förrådd va?"}
                 </span>
             </div>
 

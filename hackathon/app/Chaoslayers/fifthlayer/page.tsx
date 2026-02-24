@@ -149,7 +149,7 @@ export default function FifthLayer() {
         Dessutom så måste du svara rätt på vår fråga och klara vår captcha för att kunna gå vidare, lycka till!</h3>
 
       {/* Ads */}
-      {/*ads.map((ad, index) => (
+      {ads.map((ad, index) => (
         <PopUpAd
           key={index}
           x={ad.x}
@@ -158,7 +158,7 @@ export default function FifthLayer() {
           src={ad.src}
           onClose={() => removeAd(index)}
         />
-      ))*/}
+      ))}
 
       {step === "question" && (
         <div className="border border-zinc-700 rounded p-4 mt-6 bg-gray-900">

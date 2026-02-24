@@ -66,6 +66,10 @@ export default function EighthLayer() {
     };
   }, [selectedInput]); // Re-runs correctly when selection changes
 
+  const handleShowPasswordToggle = () => {
+    askAreYouSure(() => setShowPassword((prev) => !prev));
+  };
+
     //TOS
     const [tosOpen, setTosOpen] = useState(false);
   const tosSrc = "/Dantes%20ToS.htm";
@@ -170,7 +174,7 @@ export default function EighthLayer() {
         <div className="relative bg-red-800 w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
             <h1 className="text-white text-3xl">Välkommen till det åttonde lagret av Albins inferno, Begrägeriets krets!</h1>
             <h3 className="text-white text-center mt-4">
-                Den <span className="text-red-400">Ondskefulla fabriken</span> tackar dig för ditt fina och lätta sammarbete. Du kanske märkte att du inte kom åt den fina Nej knappen fast hur mycket våld du än försökte använda för att få fast den.
+                Den <span className="text-red-400">Ondskefulla fabriken</span> tackar dig för ditt fina och lättsamma sammarbete. Du kanske märkte att du inte kom åt den fina Nej knappen fast hur mycket våld du än försökte använda för att få fast den.
                 <br />
                 Nu är du så nära man kan vara, det är bara att skriva in ditt önskade användarnamn och lösenord så är du äntligen klar med detta helvete som Albin har skapat! 
                 <br />
@@ -191,7 +195,7 @@ export default function EighthLayer() {
             <div className="flex items-center justify-center mt-6 flex-col w-1/2">
                 <input type="text" id="username" className={`bg-zinc-800 text-white p-2 rounded border ${selectedInput === "username" ? "border-blue-500" : "border-zinc-700"} w-1/2`} placeholder="Ange ditt användarnamn" onClick={() => handleSelectedInput("username")} readOnly={true} value={username}/>
                 <input type={showPassword ? "text" : "password"} id="password" className={`bg-zinc-800 text-white p-2 rounded border ${selectedInput === "password" ? "border-blue-500" : "border-zinc-700"} mt-2 w-1/2`} placeholder="Ange ditt lösenord" onClick={() => handleSelectedInput("password")} value={password} readOnly={true}/>
-                <button className="ml-2 text-sm text-blue-500 mt-2 bg-zinc-800 p-1 rounded" onClick={() => setShowPassword((prev) => !prev)}>{showPassword ? "Dölj lösenord" : "Visa lösenord"}</button>
+                <button className="ml-2 text-sm text-blue-500 mt-2 bg-zinc-800 p-1 rounded" onClick={() => handleShowPasswordToggle()}>{showPassword ? "Dölj lösenord" : "Visa lösenord"}</button>
             </div>
         <div className="border border-zinc-700 rounded p-4 mt-6 bg-zinc-900/60">
           <h2 className="text-xl text-white mb-1">Du läste välan ToS?</h2>
