@@ -239,9 +239,9 @@ export default function SeventhLayer() {
 
   return (
     <div className="relative bg-red-900 w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
-      {/*ads.map((ad, index) => (
+      {ads.map((ad, index) => (
         <PopUpAd key={index} x={ad.x} y={ad.y} w={ad.w} src={ad.src} onClose={() => removeAd(index)} />
-      ))*/}
+      ))}
       <div className="flex items-center justify-center flex-col w-full animate-shake-low">
       <h1 className="text-white text-3xl">Välkommen till det sjunde lagret av Albins inferno, Våldets krets!</h1>
       <h3 className="text-white text-center mt-4">
