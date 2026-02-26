@@ -130,8 +130,16 @@ export default function SeventhLayer() {
     const btnH = 56;
     const margin = 40;
 
-    const x = Math.floor(Math.random() * (w - btnW - margin * 2)) + margin;
-    const y = Math.floor(Math.random() * (h - btnH - margin * 2)) + margin;
+    let x = Math.floor(Math.random() * (w - btnW - margin * 2)) + margin;
+    let y = Math.floor(Math.random() * (h - btnH - margin * 2)) + margin;
+
+    if (x < w - 100){
+      x = w - 100;
+    }
+
+    if (y < h - 100){
+      y = h - 100 
+    }
 
     setNoPos({ x, y });
   };
@@ -185,8 +193,17 @@ export default function SeventhLayer() {
     const btnH = 46;
     const margin = 40;
 
-    const x = Math.floor(Math.random() * (w - btnW - margin * 2)) + margin;
-    const y = Math.floor(Math.random() * (h - btnH - margin * 2)) + margin;
+    let x = Math.floor(Math.random() * (w - btnW - margin * 2)) + margin;
+    let y = Math.floor(Math.random() * (h - btnH - margin * 2)) + margin;
+
+    if (x < 100) {
+      x = 100;
+    }
+
+    if (y < 100){
+      y = 100;
+    }
+
 
     setDantePos({ x, y });
   };
@@ -283,7 +300,7 @@ export default function SeventhLayer() {
             }}
             onMouseMove={() => moveNoButtonSomewhereAnnoying()}
             className="bg-red-700 hover:bg-red-600 text-white px-5 py-3 rounded font-semibold"
-            style={{ position: "fixed", left: noPos.x, top: noPos.y, zIndex: 30 }}
+            style={{ position: "absolute", left: noPos.x, top: noPos.y, zIndex: 30 }}
           >
             Nej
           </button>
