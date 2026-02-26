@@ -44,7 +44,11 @@ export default function Home() {
       <nav className="absolute top-0 left-0 w-full p-4 flex gap-4">
         <Image src="/Albin-logo.png" alt="Logo" width={40} height={40} className="" />
       </nav>
+      <div className="flex items-center justify-center flex-col">
+      <h1 className="text-white mb-1 text-3xl font-bold">Albins inferno</h1>
+      <h2 className="text-white mb-6">Du verkar ha tappat bort ditt konto och måste skapa ett nytt</h2>
       <div className="relative z-10 text-black max-w-[90vw] py-[4em] px-[4.5em] text-center shadow-[0_0_20px_0_rgba(255,255,255,0.5),0_5px_5px_0_rgba(200,200,200,0.12)] bg-white">
+
   
   <h2 className="text-2xl mb-4 font-['Josefin_Sans',sans-serif]">Login</h2>
   
@@ -104,6 +108,7 @@ export default function Home() {
     </Link>
   </div>
 </div>
+    </div>
     </div>
   );
 }
